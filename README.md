@@ -50,9 +50,3 @@ I also created a **YouTube video** explaining how I built this project step by s
 1. Clone this repository:  
    ```bash
    git clone https://github.com/your-username/random-password-generator.git
-
-
-
-   ---
-
-   
