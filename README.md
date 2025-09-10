@@ -18,7 +18,7 @@ This project allows users to generate secure random passwords with customizable 
 
 ---
 
-## 📸 Demo
+## 📸 ScreenShort
  <img width="1342" height="635" alt="image" src="https://github.com/user-attachments/assets/7836084a-35e3-4be7-a51c-889a99c4847d" />
 
    <img width="1358" height="645" alt="image" src="https://github.com/user-attachments/assets/167639ca-419e-4456-8988-234577bd706a" />
