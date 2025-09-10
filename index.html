@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Password Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      width: 350px;
+      text-align: center;
+    }
+    h1 {
+      color: #0077b6;
+      margin-bottom: 20px;
+    }
+    .inputBox {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      padding: 10px;
+    }
+    .inputBox input {
+      border: none;
+      outline: none;
+      flex: 1;
+      font-size: 16px;
+    }
+    .inputBox span {
+      cursor: pointer;
+      color: #0077b6;
+    }
+    input[type="range"] {
+      width: 100%;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .row label {
+      flex: 1;
+      text-align: left;
+      font-size: 14px;
+    }
+    button {
+      background: #0077b6;
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 15px;
+    }
+    button:hover {
+      background: #023e8a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Password Generator</h1>
+
+    <div class="inputBox">
+      <input type="text" id="passBox" placeholder="Your Password" disabled />
+      <span id="copyIcon">📋</span>
+    </div>
+
+    <input type="range" min="6" max="30" value="10" id="inputSlider">
+    <div class="row">
+      <p>Password Length</p>
+      <span id="sliderValue">10</span>
+    </div>
+
+    <div class="row">
+      <label for="lowercase">Include Lowercase (a-z)</label>
+      <input type="checkbox" id="lowercase" checked>
+    </div>
+    <div class="row">
+      <label for="uppercase">Include Uppercase (A-Z)</label>
+      <input type="checkbox" id="uppercase" checked>
+    </div>
+    <div class="row">
+      <label for="numbers">Include Numbers (0-9)</label>
+      <input type="checkbox" id="numbers" checked>
+    </div>
+    <div class="row">
+      <label for="symbols">Include Symbols (!@#$)</label>
+      <input type="checkbox" id="symbols" checked>
+    </div>
+
+    <button id="getBtn">Generate Password</button>
+  </div>
+
+  <script>
+    const passBox = document.getElementById("passBox");
+    const copyIcon = document.getElementById("copyIcon");
+    const slider = document.getElementById("inputSlider");
+    const sliderValue = document.getElementById("sliderValue");
+    const getBtn = document.getElementById("getBtn");
+
+    const lowercase = document.getElementById("lowercase");
+    const uppercase = document.getElementById("uppercase");
+    const numbers = document.getElementById("numbers");
+    const symbols = document.getElementById("symbols");
+
+    const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+    const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numberChars = "0123456789";
+    const symbolChars = "!@#$%^&*()_-+=<>?/{}~";
+
+    // update slider value
+    sliderValue.textContent = slider.value;
+    slider.addEventListener("input", () => {
+      sliderValue.textContent = slider.value;
+    });
+
+    function generatePassword() {
+      let length = slider.value;
+      let chars = "";
+      if (lowercase.checked) chars += lowerChars;
+      if (uppercase.checked) chars += upperChars;
+      if (numbers.checked) chars += numberChars;
+      if (symbols.checked) chars += symbolChars;
+
+      if (chars === "") {
+        alert("Please select at least one character set!");
+        return "";
+      }
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        let randomIndex = Math.floor(Math.random() * chars.length);
+        password += chars[randomIndex];
+      }
+      return password;
+    }
+
+    getBtn.addEventListener("click", () => {
+      passBox.value = generatePassword();
+    });
+
+    copyIcon.addEventListener("click", () => {
+      if (passBox.value.length > 0) {
+        navigator.clipboard.writeText(passBox.value);
+        alert("Password copied to clipboard!");
+      }
+    });
+  </script>
+</body>
+</html>
